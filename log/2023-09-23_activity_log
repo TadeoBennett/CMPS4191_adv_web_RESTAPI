@@ -1,0 +1,16 @@
+[2023-09-23T21:00:58.921582+02:00] AWT.INFO: request received --students--
+[2023-09-23T21:00:58.923046+02:00] AWT.INFO: GET fx request: associate
+[2023-09-23T21:00:58.923321+02:00] AWT.INFO: subrequest received --associate--
+[2023-09-23T21:03:06.538937+02:00] AWT.INFO: request received --students--
+[2023-09-23T21:03:06.540622+02:00] AWT.INFO: GET fx request: bachelor
+[2023-09-23T21:03:06.540892+02:00] AWT.INFO: subrequest received --bachelor--
+[2023-09-23T22:18:15.929228+02:00] AWT.INFO: request received --students--
+[2023-09-23T22:18:15.930455+02:00] AWT.INFO: GET fx request: 
+[2023-09-23T22:18:17.950520+02:00] AWT.INFO: request received --students--
+[2023-09-23T22:18:17.951688+02:00] AWT.INFO: GET fx request: 
+[2023-09-23T23:43:33.937984+02:00] AWT.INFO: request received --students--
+[2023-09-23T23:43:34.195859+02:00] AWT.INFO: GET fx request: 
+[2023-09-23T23:43:45.449964+02:00] AWT.INFO: request received --students--
+[2023-09-23T23:43:45.453620+02:00] AWT.INFO: GET fx request: 
+[2023-09-23T23:43:47.784157+02:00] AWT.INFO: request received --students--
+[2023-09-23T23:43:47.785356+02:00] AWT.INFO: GET fx request: 

@@ -1,0 +1,1 @@
+docker run --rm --interactive --tty  --volume /home/tadeob/Development/awt/config/setup2/inc/composer:/app composer composer require monolog/monolog

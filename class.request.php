@@ -57,7 +57,7 @@ class Request extends Handler
 
         $service = null; //handles the request method function for all classes.
 
-        $response["rc"] = -1.1;
+        $response["rc"] = -1;
         $response["message"] = "Invalid Request";
 
         switch ($resource) {
@@ -106,7 +106,7 @@ class Request extends Handler
                     $response = $service->DELETE($clientRequestArray);
                     break;
                 default:
-                    $response["rc"] = -1.2;
+                    $response["rc"] = -2;
                     $response["message"] = "Unsupported Request Method";
                     $this->log->info("unsupported request method used...");
                     break;

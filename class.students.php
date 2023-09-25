@@ -14,7 +14,7 @@ class Student extends Handler
     public function test()
     {
         $this->log->info("test fx ran...");
-        $response["rc"] = 2;
+        $response["rc"] = 100;
         $response["message"] = "Success";
         return $response;
     }
@@ -22,7 +22,7 @@ class Student extends Handler
 
     public function getAllStudents()
     {
-        $response["rc"] = -2.2;
+        $response["rc"] = -12;
         $response["message"] = "Student Details Not Found";
 
         try {
@@ -30,14 +30,14 @@ class Student extends Handler
             if ($this->db !== null) {
                 $stmt = $this->db->prepare($query);
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
                 return $response;
             }
 
             if (!$stmt->execute()) {
                 $stmt = null;
-                $response["rc"] = -2.4;
+                $response["rc"] = -13;
                 $response["message"] = "Error getting students";
                 return $response;
             }
@@ -58,14 +58,15 @@ class Student extends Handler
             echo "Error: " . $e->getMessage();
         }
 
-        $response["rc"] = 2;
+        $response["rc"] = 50;
         $response["message"] = "Success";
+        http_response_code(200);
         return $response;
     }
 
     public function getStudentsDetails($requestID)
     {
-        $response["rc"] = -2.5;
+        $response["rc"] = -14;
         $response["message"] = "Student Details Not Found for id $requestID";
 
         try {
@@ -74,14 +75,14 @@ class Student extends Handler
                 $stmt = $this->db->prepare($query);
                 $stmt->bind_param("i", $requestID);
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
                 return $response;
             }
 
             if (!$stmt->execute()) {
                 $stmt = null;
-                $response["rc"] = -2.6;
+                $response["rc"] = -15;
                 $response["message"] = "Error getting student with id $requestID";
                 return $response;
             }
@@ -102,14 +103,15 @@ class Student extends Handler
             echo "Error: " . $e->getMessage();
         }
 
-        $response["rc"] = 2.1;
+        $response["rc"] = 51;
         $response["message"] = "Success";
+        http_response_code(200);
         return $response;
     }
 
     public function getAllAssociates()
     {
-        $response["rc"] = -2.2;
+        $response["rc"] = -16;
         $response["message"] = "Associate Student Details Not Found";
 
         try {
@@ -117,14 +119,14 @@ class Student extends Handler
             if ($this->db !== null) {
                 $stmt = $this->db->prepare($query);
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
                 return $response;
             }
 
             if (!$stmt->execute()) {
                 $stmt = null;
-                $response["rc"] = -2.4;
+                $response["rc"] = -17;
                 $response["message"] = "Error getting associate students";
                 return $response;
             }
@@ -145,14 +147,15 @@ class Student extends Handler
             echo "Error: " . $e->getMessage();
         }
 
-        $response["rc"] = 2;
+        $response["rc"] = 52;
         $response["message"] = "Success";
+        http_response_code(200);
         return $response;
     }
 
     public function getAllBachelors()
     {
-        $response["rc"] = -2.2;
+        $response["rc"] = -18;
         $response["message"] = "Bachelors Student Details Not Found";
 
         try {
@@ -160,14 +163,14 @@ class Student extends Handler
             if ($this->db !== null) {
                 $stmt = $this->db->prepare($query);
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
                 return $response;
             }
 
             if (!$stmt->execute()) {
                 $stmt = null;
-                $response["rc"] = -2.4;
+                $response["rc"] = -19;
                 $response["message"] = "Error getting bachelor students";
                 return $response;
             }
@@ -188,8 +191,9 @@ class Student extends Handler
             echo "Error: " . $e->getMessage();
         }
 
-        $response["rc"] = 2;
+        $response["rc"] = 53;
         $response["message"] = "Success";
+        http_response_code(200);
         return $response;
     }
 
@@ -197,7 +201,7 @@ class Student extends Handler
 
     public function GET($requestParameters)
     {
-        $response["rc"] = -2.1;
+        $response["rc"] = -11;
         $response["message"] = "Invalid Request";
 
         $request = isset($requestParameters[2]) ? $requestParameters[2] : -1;
@@ -208,7 +212,7 @@ class Student extends Handler
                 $this->log->info("subrequest received --" . $request . '--');
                 $response = $this->getAllAssociates();
                 break;
-                case 'bachelor':
+            case 'bachelor':
                     $this->log->info("subrequest received --" . $request . '--');
                     $response = $this->getAllBachelors();
                 break;
@@ -249,14 +253,14 @@ class Student extends Handler
                 $stmt = $this->db->prepare($query);
                 $stmt->bind_param("ssissssi", $firstname, $lastname, $age, $address, $contact_number, $email, $degree, $status);
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
                 return $response;
             }
 
             if (!$stmt->execute()) {
                 $stmt = null;
-                $response["rc"] = -2.4;
+                $response["rc"] = -21;
                 $response["message"] = "Error creating new student";
                 return $response;
             }
@@ -264,7 +268,7 @@ class Student extends Handler
             $newlyInsertedID = "";
             if ($this->db != null) {
                 $newlyInsertedID = $this->db->insert_id;
-                $response["rc"] = 2;
+                $response["rc"] = 54;
                 $response["message"] = "Successful student creation";
                 $response["new_student_id"] = $newlyInsertedID;
             }
@@ -272,6 +276,7 @@ class Student extends Handler
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
+        http_response_code(200);
         return $response;
     }
 
@@ -279,7 +284,7 @@ class Student extends Handler
 
     public function PUT($requestParameters, $putData)
     {
-        $response["rc"] = 2;
+        $response["rc"] = 22;
         $response["message"] = "Invalid Request";
 
         $request = isset($requestParameters[2]) ? $requestParameters[2] : -1;
@@ -318,7 +323,7 @@ class Student extends Handler
             if ($this->db !== null) {
                 $stmt = $this->db->prepare($query);
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
                 return $response;
             }
@@ -331,10 +336,10 @@ class Student extends Handler
 
             if (!$stmt->execute()) {
                 $stmt = null;
-                $response["rc"] = -2.4;
+                $response["rc"] = -23;
                 $response["message"] = "Error updating student";
             } else {
-                $response["rc"] = -2.4;
+                $response["rc"] = 55;
                 $response["message"] = "Success. Student Updated";
             }
             $stmt->close();
@@ -348,7 +353,7 @@ class Student extends Handler
 
     public function DELETE($requestParameters)
     {
-        $response["rc"] = 2;
+        $response["rc"] = -24;
         $response["message"] = "Invalid Request";
 
         $request = isset($requestParameters[2]) ? $requestParameters[2] : -1;
@@ -368,15 +373,15 @@ class Student extends Handler
 
                 if ($stmt->execute()) {
                     $stmt->close();
-                    $response["rc"] = 2;
+                    $response["rc"] = 56;
                     $response["message"] = "Success. Student deleted with id $request";
                 } else {
                     $stmt->close();
-                    $response["rc"] = -2.4;
+                    $response["rc"] = -25;
                     $response["message"] = "Error deleting student with id $request";
                 }
             } else {
-                $response["rc"] = -2.3;
+                $response["rc"] = -3;
                 $response["message"] = "No database connection";
             }
         } catch (Exception $e) {

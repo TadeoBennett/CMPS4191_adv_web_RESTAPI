@@ -7,12 +7,10 @@ header("Content-Type: application/json; charset=UTF-8");
 //     die("Forbidden");
 // }
 
-
-
 define("DBHOST", isset($_ENV["DBHOST"]) ? $_ENV["DBHOST"]: "127.0.0.1");
 define("DBUSER", isset($_ENV["DBUSER"]) ? $_ENV["DBUSER"]: "root");
 define("DBPWD", isset($_ENV["DBPWD"]) ? $_ENV["DBPWD"]: "");
-define("DBNAME", isset($_ENV["DBNAME"]) ? $_ENV["DBNAME"]: "awt");
+define("DBNAME", isset($_ENV["DBNAME"]) ? $_ENV["DBNAME"]: "laptopstore");
 
 require_once "class.handler.php";
 

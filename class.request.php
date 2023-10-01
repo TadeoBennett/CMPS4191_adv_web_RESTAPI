@@ -11,6 +11,7 @@ class Request extends Handler
     {
     }
 
+    //generates an associative array using the post data
     private function generate_assoc_array($postData)
     {
         $array = array();
@@ -21,6 +22,7 @@ class Request extends Handler
         return $array;
     }
 
+    //turns data gotten using file_contents(used in PUT and DELETE) into an object
     private function parsePutFormData($putData)
     {
         $formData = [];
@@ -47,13 +49,13 @@ class Request extends Handler
 
     public function process($data)
     {
-        $clientRequest = $data["REQUEST_URI"];
-        $clientRequestArray = explode("/", ltrim($clientRequest, "/"));
+        $clientRequest = $data["REQUEST_URI"]; //save the request URI
+        $clientRequestArray = explode("/", ltrim($clientRequest, "/"));  //split the URI by the "/" character
         $requestMethod = isset($data["REQUEST_METHOD"]) ? $data["REQUEST_METHOD"] : "GET"; //default to GET if the unexpected happens
 
-        $resource = isset($clientRequestArray[1]) ? $clientRequestArray[1] : -1;
+        $resource = isset($clientRequestArray[1]) ? $clientRequestArray[1] : -1;  //check the first resource exists
 
-        $this->log->info("request received --" . $resource . '--');
+        $this->log->info("request received --" . $resource . '--');  //log first resource requested
 
         $service = null; //handles the request method function for all classes.
 
@@ -61,17 +63,18 @@ class Request extends Handler
         $response["message"] = "Invalid Request";
 
         switch ($resource) {
-            case 'students':
-                $service = new Student();
+            case 'users':
+                $service = new User();
                 // $response = $service->test();
                 break;
-            case 'lecturers':
+            case 'orders':
                 // $service = new Lecturer();
                 break;
-            case 'courses':
+            case 'feedback':
                 // $service = new Course();
                 break;
-            case 'venues':
+                case 'laptops':
+                    // $service = new Course();
                 break;
             default:
                 $this->log->info("unknown resource requested...");
@@ -88,7 +91,7 @@ class Request extends Handler
                     break;
 
                 case 'POST':
-                    $postData = $this->generate_assoc_array($_POST); //empty array to store POST data
+                    $postData = $this->generate_assoc_array($_POST); //pass post data to generate and save an assoc array
 
                     $response = $service->POST($clientRequestArray, $postData);
                     break;

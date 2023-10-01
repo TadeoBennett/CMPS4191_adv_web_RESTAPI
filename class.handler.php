@@ -1,7 +1,7 @@
 <?php
 
 //including all the necesarry classes and files
-require_once "class.students.php";
+require_once "class.users.php";
 require_once "class.request.php";
 require_once "inc/composer/vendor/autoload.php";
 

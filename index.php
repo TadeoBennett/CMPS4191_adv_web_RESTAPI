@@ -12,7 +12,7 @@ define("DBUSER", isset($_ENV["DBUSER"]) ? $_ENV["DBUSER"]: "root");
 define("DBPWD", isset($_ENV["DBPWD"]) ? $_ENV["DBPWD"]: "");
 define("DBNAME", isset($_ENV["DBNAME"]) ? $_ENV["DBNAME"]: "laptopstore");
 
-require_once "class.handler.php";
+require_once "./classes/class.handler.php";
 
 $request = new Request();
 $request->process($_SERVER);

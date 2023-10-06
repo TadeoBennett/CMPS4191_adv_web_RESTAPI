@@ -1,1 +1,9 @@
 docker run --rm --interactive --tty  --volume /home/tadeob/Development/awt/config/setup2/inc/composer:/app composer composer require monolog/monolog
+
+//-----------FOR the validation
+docker run --rm --interactive --tty  --volume /home/tadeob/Development/awt/config/CMPS4191_adv_web_RESTAPI/inc/composer:/app composer composer require respect/validation
+
+//-----------To uninstall the validation library
+docker run --rm --interactive --tty  --volume /home/tadeob/Development/awt/config/CMPS4191_adv_web_RESTAPI/inc/composer:/app composer composer remove respect/validation
+
+

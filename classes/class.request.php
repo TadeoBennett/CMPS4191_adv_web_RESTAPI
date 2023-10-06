@@ -11,6 +11,36 @@ class Request extends Handler
     {
     }
 
+    /*public function rateLimitCheck($server_data){
+        $currentLimitCount = 0;
+
+        if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
+            $clientIP = $_SERVER["HTTP_CLIENT_IP"];
+        }elseif (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+            $clientIP = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }else{
+            $clientIP = $_SERVER["REMOTE_ADDR"];
+        }
+
+        try {
+            if (!$this->rl->exists($clientIP)) {
+                $this->rl->set($clientIP, 1);
+                $this->rl->expire($clientIP, RL_SECS);
+                $currentLimitCount = 1;
+            } else {
+                $this->rl->INCR($clientIP);
+                $currentLimitCount = $this->rl->get($clientIP);
+                if ($currentLimitCount > RL_MAX) {
+                    $this->log->info("User " . $clientIP . " limit exceeded.");
+                    return false;
+                }
+            }
+            
+        } catch (RedisException $e) {
+            $this->log->error("Redis object not ");
+        }
+    } */
+
     //generates an associative array using the post data
     private function generate_assoc_array($postData)
     {

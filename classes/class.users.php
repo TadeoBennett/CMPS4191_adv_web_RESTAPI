@@ -1,5 +1,8 @@
 <?php
 
+//validation docs at https://respect-validation.readthedocs.io/en/latest/
+use Respect\Validation\Validator as v; //use this wherever the library is used.
+
 class User extends Handler
 {
     function __construct()
@@ -68,6 +71,12 @@ class User extends Handler
     {
         $response["rc"] = -14;
         $response["message"] = "User Details Not Found for id $requestID";
+
+        if (!v::numericVal()->positive()->validate($requestID)) {
+            $response["rc"] = -20;
+            $response["message"] = "Invalid ID. Expected INT value.";
+            return $response;
+        }
 
         try {
             $query = "SELECT * FROM users WHERE user_id = ?;";

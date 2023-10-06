@@ -1,0 +1,21 @@
+[2023-10-01T23:06:30.181994+00:00] AWT.ERROR: Error initializing database connection: Unknown database 'laptopstore'
+[2023-10-01T23:06:30.182675+00:00] AWT.INFO: request received ----
+[2023-10-01T23:06:30.182761+00:00] AWT.INFO: unknown resource requested...
+[2023-10-01T23:06:44.895149+00:00] AWT.ERROR: Error initializing database connection: Unknown database 'laptopstore'
+[2023-10-01T23:06:44.901269+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:06:44.908193+00:00] AWT.ERROR: Error initializing database connection: Unknown database 'laptopstore'
+[2023-10-01T23:06:44.908629+00:00] AWT.INFO: GET fx request: -1
+[2023-10-01T23:06:54.302939+00:00] AWT.ERROR: Error initializing database connection: Unknown database 'laptopstore'
+[2023-10-01T23:06:54.305350+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:06:54.310563+00:00] AWT.ERROR: Error initializing database connection: Unknown database 'laptopstore'
+[2023-10-01T23:06:54.310862+00:00] AWT.INFO: GET fx request: -1
+[2023-10-01T23:16:15.003222+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:16:15.035352+00:00] AWT.INFO: GET fx request: -1
+[2023-10-01T23:16:45.708988+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:16:45.720517+00:00] AWT.INFO: GET fx request: 1
+[2023-10-01T23:17:15.568264+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:17:15.590967+00:00] AWT.INFO: GET fx request: 22
+[2023-10-01T23:17:21.730871+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:17:21.736854+00:00] AWT.INFO: GET fx request: thirty
+[2023-10-01T23:29:54.528453+00:00] AWT.INFO: request received --users--
+[2023-10-01T23:29:54.582252+00:00] AWT.INFO: GET fx request: thirty

@@ -1,3 +1,4 @@
+SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS laptops;
 DROP TABLE IF EXISTS feedback;

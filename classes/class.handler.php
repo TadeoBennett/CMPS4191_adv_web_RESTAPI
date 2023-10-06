@@ -14,6 +14,7 @@ use Monolog\Handler\StreamHandler;
 class Handler {
     public $db;
     public $log;
+    public $rl; //request limiter
 
     function __construct() {
         // Initialize the logger

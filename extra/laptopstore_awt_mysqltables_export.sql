@@ -7,6 +7,10 @@ DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS addresses;
 DROP TABLE IF EXISTS brands;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS key_permissions;
+DROP TABLE IF EXISTS permissions;
+DROP TABLE IF EXISTS methods;
+DROP TABLE IF EXISTS user_keys;
 
 
 CREATE TABLE `users` (
@@ -17,6 +21,8 @@ CREATE TABLE `users` (
   `username` varchar(255),
   `email` varchar(255),
   `address` INT,
+  `phone` varchar(255),
+  `age` INT,
   `password` varchar(255),
   `member` bool,
   `status` bool,
@@ -85,16 +91,56 @@ CREATE TABLE `feedback` (
   `created_at` timestamp
 );
 
+CREATE TABLE `user_keys` (
+  `key_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INT,
+  `key` varchar(255),
+  `expired` int,
+  `created_at` timestamp,
+  `status` bool
+);
+
+CREATE TABLE `key_permissions` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `key_id` INT,
+  `permission_id` INT,
+  `method_id` INT,
+  `created_at` timestamp,
+  `status` bool
+);
+
+CREATE TABLE `permissions` (
+  `permission_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `parent` varchar(255),
+  `resource` varchar(255),
+  `created_at` timestamp,
+  `status` bool
+);
+
+CREATE TABLE `methods` (
+  `method_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `method` varchar(255),
+  `created_at` timestamp
+);
+
 ALTER TABLE `users` ADD FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`);
 
 ALTER TABLE `users` ADD FOREIGN KEY (`address`) REFERENCES `addresses` (`address_id`);
 
-ALTER TABLE `orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
-ALTER TABLE `orders` ADD FOREIGN KEY (`laptop_id`) REFERENCES `laptops` (`laptop_id`);
+ALTER TABLE `orders` ADD FOREIGN KEY (`laptop_id`) REFERENCES `laptops` (`laptop_id`) ON DELETE CASCADE;
 
 ALTER TABLE `laptops` ADD FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`);
 
 ALTER TABLE `laptops` ADD FOREIGN KEY (`brand`) REFERENCES `brands` (`brand_id`);
 
-ALTER TABLE `feedback` ADD FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `feedback` ADD FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+
+ALTER TABLE `user_keys` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)  ON DELETE CASCADE;
+
+ALTER TABLE `key_permissions` ADD FOREIGN KEY (`key_id`) REFERENCES `user_keys` (`key_id`) ON DELETE CASCADE;
+
+ALTER TABLE `key_permissions` ADD FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`permission_id`);
+
+ALTER TABLE `key_permissions` ADD FOREIGN KEY (`method_id`) REFERENCES `methods` (`method_id`);

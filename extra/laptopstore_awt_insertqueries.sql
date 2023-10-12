@@ -35,10 +35,10 @@ INSERT INTO `categories` (`category_id`, `name`, `created_at`) VALUES
 
 
 --  insert 3 students
-INSERT INTO `users` (`role_id`, `firstname`, `lastname`, `username`, `email`, `address`, `password`, `member`, `status`, `created_at`) VALUES 
- (1, 'Tadeo', 'Bennett', 'TBennett', 'tadeo@gmail.com', '4', 'Tadeo2002', '0', '1', current_timestamp()),
- (2, 'William', 'Locario', 'WLocario', 'william@gmail.com', '6', 'William2002', '1', '1', current_timestamp()), 
- (2, 'Victor', 'Castillo', 'VCastillo', 'victor@gmail.com', '2', 'Victor2002', '0', '1', current_timestamp());
+INSERT INTO `users` (`role_id`, `firstname`, `lastname`, `username`, `email`, `address`, `phone`, `age`, `password`, `member`, `status`, `created_at`) VALUES 
+ (1, 'Tadeo', 'Bennett', 'TBennett', 'tadeo@gmail.com', '4', '', 21, 'Tadeo2002', '0', '1', current_timestamp()),
+ (2, 'William', 'Locario', 'WLocario', 'william@gmail.com', '6', '', 22, 'William2002', '1', '1', current_timestamp()), 
+ (2, 'Victor', 'Castillo', 'VCastillo', 'victor@gmail.com', '2', '', 19, 'Victor2002', '0', '1', current_timestamp());
 
 
 --  insert brands
@@ -156,3 +156,49 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `laptop_id`, `created_at`)
 VALUES 
  (NULL, '2', '1', current_timestamp()),
  (NULL, '3', '2', current_timestamp());
+
+
+INSERT INTO `methods` (`method_id`, `method`, `created_at`)
+VALUES
+(NULL, 'GET', current_timestamp()),
+(NULL, 'POST', current_timestamp()),
+(NULL, 'PUT', current_timestamp()),
+(NULL, 'DELETE', current_timestamp());
+
+INSERT INTO `permissions` (`permission_id`, `parent`, `resource`, `created_at`, `status`)
+VALUES
+(NULL, 'users', '/', current_timestamp(), 1),
+(NULL, 'users', 'employees', current_timestamp(), 1),
+(NULL, 'users', 'customers', current_timestamp(), 1),
+(NULL, 'laptops', '/', current_timestamp(), 1);
+
+-- each user is given one key by default
+INSERT INTO `user_keys` (`key_id`, `user_id`, `key`, `expired`, `created_at`, `status`)
+VALUES
+(NULL, 1, 'awt_Klw8!LhJ!2e,+?R%;#NZ_2967926746', 0, current_timestamp(), 1),
+(NULL, 2, 'awt_H=D}ZPACJe:=a;XP*ity_3331065083', 0, current_timestamp(), 1),
+(NULL, 3, 'awt_]8M]pG6)HwCv0a3}JN[F_3355600744', 0, current_timestamp(), 1);
+
+INSERT INTO `key_permissions` (`id`, `key_id`, `permission_id`, `method_id`, `created_at`, `status`)
+VALUES
+-- user with key 1(user 1) can perform GET requests for all collections
+(NULL, 1, 1, 1, current_timestamp(), 1),
+(NULL, 1, 2, 1, current_timestamp(), 1),
+(NULL, 1, 3, 1, current_timestamp(), 1),
+(NULL, 1, 4, 1, current_timestamp(), 1),
+-- user with key 1(user1) can perform POST, PUT, and DELETE requests for users
+(NULL, 1, 1, 2, current_timestamp(), 1),
+(NULL, 1, 1, 3, current_timestamp(), 1),
+(NULL, 1, 1, 4, current_timestamp(), 1),
+-- user with key 1(user 1) can perform POST, PUT and DELETE requests for laptops
+(NULL, 1, 4, 2, current_timestamp(), 1),
+(NULL, 1, 4, 3, current_timestamp(), 1),
+(NULL, 1, 4, 4, current_timestamp(), 1),
+-- users with keys 2 and 3 (the customers) can only perform GET requests for laptops
+(NULL, 2, 4, 1, current_timestamp(), 1),
+(NULL, 3, 4, 1, current_timestamp(), 1);
+
+-- Note that all employees are given the same permissions as user 1 that was inserted. 
+-- Note that all customers are given the same permission as user 2 and 3 that was inserted.
+
+

@@ -2,28 +2,30 @@
 
 header("Content-Type: application/json; charset=UTF-8");
 
-// if (isset($_SERVER["CONTENT_TYPE"]) || $_SERVER["CONTENT_TYPE"] != "application/json") {
-//     http_response_code(403);
-//     die("Forbidden");
-// }
-
-define("DBHOST", isset($_ENV["DBHOST"]) ? $_ENV["DBHOST"]: "192.168.182.129");
-define("DBUSER", isset($_ENV["DBUSER"]) ? $_ENV["DBUSER"]: "root");
-define("DBPWD", isset($_ENV["DBPWD"]) ? $_ENV["DBPWD"]: "19722002");
-define("DBNAME", isset($_ENV["DBNAME"]) ? $_ENV["DBNAME"]: "laptopstore");
-
-require_once "./classes/class.handler.php";
+require_once "./classes/class.request.php";
 
 $request = new Request();
-// if ($request->rateLimitCheck($_SERVER)) {
-//     $request->process($_SERVER); //if request limit is not exceeded then process this request
-// }else{
-//     http_response_code(429);
-//     die("Too many requests; Rate limit exceeded");
-// }
+
+$rateLimitNotExceeded = $request->rateLimitCheck($_SERVER); //returns true if not exceeded
 
 
-$request->process($_SERVER);
+if ($rateLimitNotExceeded == 1) {
+    $apiKeyCheck = $request->checkApiKey($_SERVER);
+
+    if ($apiKeyCheck["key_id"] > 0 && !empty($apiKeyCheck["permissions"])) {
+        $request->process($_SERVER, $apiKeyCheck["permissions"]);
+    }else {
+        http_response_code(401);
+        die("Access Denied");
+    }
+
+}else if ($rateLimitNotExceeded == -1) {
+    http_response_code(400);
+    die("Incomplete Request");
+} else  {
+    http_response_code(429);
+    die("Too many requests; Rate limit exceeded");
+}
 
 
-
+// $request->process($_SERVER);

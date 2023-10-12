@@ -1,0 +1,112 @@
+Table users{
+  user_id INT [pk, increment]
+  role_id INT [ref: > roles.role_id]
+  firstname varchar
+  lastname varchar
+  username varchar
+  email varchar
+  address INT [ref: > addresses.address_id]
+  phone varchar
+  age INT
+  password varchar 
+  member bool
+  status bool
+  created_at timestamp
+}
+
+Table roles{
+  role_id INT [pk, increment]
+  name varchar 
+  created_at timestamp
+}
+
+
+Table addresses{
+  address_id INT [pk, increment]
+  address varchar
+  created_at timestamp
+}
+
+
+Table orders{
+  order_id INT [pk, increment]
+  customer_id INT [ref: > users.user_id]
+  laptop_id INT [ref: - laptops.laptop_id]
+  created_at timestamp
+}
+
+Table laptops{
+  laptop_id INT [pk, increment]
+  category_id INT [ref: > categories.category_id]
+  name varchar
+  brand int [ref: > brands.brand_id]
+  cpu_type varchar  //AMD or Ryzen
+  cpu_name varchar
+  ram int  //in GBs
+  ram_type varchar  //DDR3/4/5
+  storage_type varchar //SSD or HDD
+  storage_capacity int //in GBs
+  has_gpu bool
+  gpu_type varchar //integrated or dedicated
+  display varchar
+  resolution varchar
+  operating_system varchar //windows/mac/linux
+  price int
+  status bool
+  created_at timestamp
+}
+
+Table brands{
+  brand_id INT [pk, increment]
+  name varchar
+  status int
+  created_at timestamp
+}
+
+Table categories{
+  category_id INT [pk, increment]
+  name varchar 
+  created_at timestamp
+}
+
+Table feedback{
+  review_id INT [pk, increment]
+  customer_id INT [ref: - users.user_id]
+  review_count int
+  message varchar
+  created_at timestamp
+}
+
+Table user_keys{
+  key_id INT [pk, increment]
+  user_id INT [ref: > users.user_id]
+  key varchar 
+  expired int
+  created_at timestamp
+  status bool
+}
+
+Table key_permissions{
+  id INT [pk, increment]
+  key_id INT [ref: > user_keys.key_id]
+  permission_id INT [ref: > permissions.permission_id]
+  method_id INT [ref: > methods.method_id]
+  created_at timestamp
+  status bool
+}
+
+Table permissions{
+  permission_id INT [pk, increment]
+  parent varchar
+  resource varchar
+  created_at timestamp
+  status bool
+}
+
+Table methods{
+  method_id INT [pk, increment]
+  method varchar
+  created_at timestamp
+}
+
+

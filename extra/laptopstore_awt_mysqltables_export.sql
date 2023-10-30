@@ -72,14 +72,14 @@ CREATE TABLE `laptops` (
 
 CREATE TABLE `brands` (
   `brand_id` INT PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255),
+  `brand` varchar(255),
   `status` int,
   `created_at` timestamp
 );
 
 CREATE TABLE `categories` (
   `category_id` INT PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255),
+  `category` varchar(255),
   `created_at` timestamp
 );
 

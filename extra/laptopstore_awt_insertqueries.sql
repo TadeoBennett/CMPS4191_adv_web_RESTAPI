@@ -16,7 +16,7 @@ INSERT INTO `addresses` (`address_id`, `address`, `created_at`) VALUES
 
 
 --  insert categories
-INSERT INTO `categories` (`category_id`, `name`, `created_at`) VALUES
+INSERT INTO `categories` (`category_id`, `category`, `created_at`) VALUES
  (NULL, 'Ultrabook', current_timestamp()),
  (NULL, 'Gaming Laptop', current_timestamp()),
  (NULL, 'Business Laptop', current_timestamp()),
@@ -42,7 +42,7 @@ INSERT INTO `users` (`role_id`, `firstname`, `lastname`, `username`, `email`, `a
 
 
 --  insert brands
-INSERT INTO `brands` (`name`, `status`, `created_at`)
+INSERT INTO `brands` (`brand`, `status`, `created_at`)
 VALUES
 ('Apple', 1, NOW()),
 ('Dell', 1, NOW()),
@@ -135,7 +135,7 @@ VALUES
 --  Laptop 2
 (5, 'Laptop Zeta', 10, 'Intel', 'Core i5', 8, 'DDR4', 'SSD', 256, 1, 'NVIDIA GeForce GTX 1650', '15.6" LED', 'Full HD', 'Windows 11', 1199, 1, NOW()),
 --  Laptop 2
-(7, 'Laptop Eta', 14, 'AMD', 'Ryzen 9', 32, 'DDR4', 'SSD', 1000, 1, 'NVIDIA GeForce RTX 3070', '17.3" OLED', '4K UHD', 'Windows 11', 1899, 1, NOW()),
+(7, 'Laptop Sky', 14, 'AMD', 'Ryzen 9', 32, 'DDR4', 'SSD', 1000, 1, 'NVIDIA GeForce RTX 3070', '17.3" OLED', '4K UHD', 'Windows 11', 1899, 1, NOW()),
 --  Laptop 2
 (2, 'Laptop Theta', 3, 'Intel', 'Core i3', 4, 'DDR3', 'HDD', 500, 0, NULL, '13.3" LED', 'HD', 'Windows 10', 499, 1, NOW()),
 --  Laptop 2
@@ -178,6 +178,7 @@ VALUES
 (NULL, 1, 'awt_[9H<TzE5pIhW08tS(yF=Qo?{_0227029b5e7013d468d8155a47f1ec2b38f9f129aaadb9a668dd956dae443540', 0, current_timestamp(), 1),
 (NULL, 2, 'awt_5Lial}zgAAKu.U!SM4GwzECr_f9b5381cfc6e7ac6a4e1ae1ecc97a29a212a9b0a23247fac6a74ed3a982e9353', 0, current_timestamp(), 1),
 (NULL, 3, 'awt_]vzq0@MBoNqY19[z.!YB)KxQ_7f1b07ed9e5279d33a28072a2065f43cf3260dd4d771aabb6c564c2b576a3ebd', 0, current_timestamp(), 1);
+
 
 INSERT INTO `key_permissions` (`id`, `key_id`, `permission_id`, `method_id`, `created_at`, `status`)
 VALUES

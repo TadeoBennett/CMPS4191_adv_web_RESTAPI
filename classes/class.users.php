@@ -28,7 +28,6 @@ class User extends DBHandler
     //done
     public function getAllUsers()
     {
-        $this->log->info("checking ". __METHOD__);
         $response["rc"] = -15;
         $response["message"] = "Users' Details Not Found";
 
@@ -83,7 +82,6 @@ class User extends DBHandler
     //done
     public function getUsersDetails($requestID)
     {
-        $this->log->info("checking ". __METHOD__);
         $response["rc"] = -16;
         $response["message"] = "User Details Not Found for id $requestID";
 
@@ -121,8 +119,8 @@ class User extends DBHandler
             if ($result->num_rows === 0) {
                 $stmt = null;
                 $response["rc"] = -6;
-                $response["message"] = "Error reading user record of provided ID: $requestID";
-                $this->log->debug("error: no results received for id $requestID");
+                $response["message"] = "Error reading user record of provided ID";
+                $this->log->debug("error: no results received");
                 return $response;
             }
 
@@ -268,7 +266,7 @@ class User extends DBHandler
         return $result;
     }
     //done
-    public function GET($requestParameters)
+    public function GET($requestParameters, $params)
     {
         $response["rc"] = -11;
         $response["message"] = "Invalid Request";
@@ -334,7 +332,7 @@ class User extends DBHandler
     public function addUserApiKey($newlyInsertedUserID, $role_id)
     {
         $randomString = $this->generateRandomString();
-        $key = "awt_" . $randomString . "_" . crc32($randomString . API_SECRET);
+        $key = "awt_" . $randomString . "_" . hash_hmac('sha256', $randomString, API_SECRET);
         $this->log->info("assembled new user key");
 
         try {

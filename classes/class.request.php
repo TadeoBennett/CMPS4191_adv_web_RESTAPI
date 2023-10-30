@@ -76,7 +76,7 @@ class Request extends DBHandler
             return $response;
         }
 
-        $checksum = crc32(($key_parts[1] . API_SECRET)); //calculating the correct checksum using the checksum orovided and my secure key
+        $checksum = hash_hmac('sha256', $key_parts[1], API_SECRET); //calculating the correct checksum using the checksum provided and my secure key
         if ($checksum != $key_parts[2]) {
             $this->log->error(__METHOD__ . " invalid api key checksum.");
             // $this->log->error(__METHOD__ . " invalid api key checksum. calculated '$checksum' provided '".$key_parts[2]."'");
@@ -265,8 +265,10 @@ class Request extends DBHandler
 
         $clientRequest = $data["REQUEST_URI"]; //save the request URI
         $clientRequestArray = explode("/", ltrim($clientRequest, "/"));  //split the URI by the "/" character
+
         $requestMethod = isset($data["REQUEST_METHOD"]) ? $data["REQUEST_METHOD"] : "GET"; //default to GET if the unexpected happens
         $parentResource = isset($clientRequestArray[1]) ? $clientRequestArray[1] : -1;  //check the first parentResource exists
+
 
         $this->log->info("request received ------" . $requestMethod . '------');  //log first parentResource requested
 
@@ -281,7 +283,7 @@ class Request extends DBHandler
             $response["message"] = "No permissions to access parentResource --$parentResource--";
             $errorFound = 1;
         }else{
-            $this->log->debug("granted access for for parentResource --$parentResource--");
+            $this->log->debug("granted access for parentResource --$parentResource--");
         }
         //--------------------------------------------------
 
@@ -311,7 +313,9 @@ class Request extends DBHandler
                 //checking which HTTP request method is being used
                 switch ($requestMethod) {
                     case 'GET':
-                        $response = $service->GET($clientRequestArray);
+                        $params = file_get_contents("php://input");
+                        // print_r($params);
+                        $response = $service->GET($clientRequestArray, $params);
                         break;
     
                     case 'POST':

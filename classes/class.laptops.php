@@ -18,13 +18,48 @@ class Laptop extends DBHandler
     {
     }
     //done
-    public function getAllLaptops()
+    public function getAllLaptops($params)
     {
+
         $response["rc"] = -21;
         $response["message"] = "Laptops' Details Not Found";
 
+        $params = json_decode($params, true);
+
+
+        //check if orderrule and or paiging rule was set
+        $order_rule = !empty($params)  && isset($params["order"]) ? $params["order"] : array();
+        $paging_rule = !empty($params)  && isset($params["paging"]) ? $params["paging"] : array();
+        $this->log->debug("receive order rule: " . json_encode($order_rule));
+        $this->log->debug("receive paging rule: " . json_encode($paging_rule));
+
+
+        // ORDERING ---------------------
+        $orderSQl = !empty($order_rule) ? " ORDER BY " : "";
+        foreach ($order_rule as $key => $value) {
+            $orderSQl .= $key. " " . $value. ", ";
+        }
+        $orderSQl = rtrim($orderSQl, ", ");
+
+        $this->log->debug("ordersql: ". $orderSQl);
+
+        //PAGING -----------------------
+        $pagingSQL = "LIMIT 5"; //default to 5 if no end is specified
+        if (isset($paging_rule["start"]) && isset($paging_rule["end"])) {
+            // $pagingSQL = "LIMIT " . $paging_rule["start"] - 1 . ", ". $paging_rule["end"] - $paging_rule["start"] + 1;
+            $pagingSQL = "LIMIT " . $paging_rule["start"] . ", ". $paging_rule["end"];
+        }
+
+        $this->log->debug("pagingsql: ".$pagingSQL);
+
         try {
-            $query = "SELECT * FROM laptops;";
+            $query = "SELECT L.laptop_id, C.category, L.name, B.brand, L.cpu_type, L.cpu_name, L.ram, L.ram_type, L.storage_type, L.storage_capacity, L.has_gpu, L.gpu_type, L.display, L.resolution, L.operating_system, L.price, L.status     FROM laptops as L 
+            INNER JOIN categories AS C ON L.category_id = C.category_id 
+            INNER JOIN brands AS B ON L.brand = B.brand_id 
+            $orderSQl $pagingSQL";
+
+            $this->log->debug("final query: ". $query);
+
             if ($this->sqlDB !== null) {
                 $stmt = $this->sqlDB->prepare($query);
             } else {
@@ -150,7 +185,7 @@ class Laptop extends DBHandler
         return $result;
     }
     //done
-    public function GET($requestParameters)
+    public function GET($requestParameters, $params)
     {
         $response["rc"] = -19;
         $response["message"] = "Invalid Request";
@@ -162,7 +197,8 @@ class Laptop extends DBHandler
 
         $validRequest = $this->checkValidMethod($parentResource, $subResource, __FUNCTION__);
         if ($validRequest) {
-            $response = $subResource < 1 ? $this->getAllLaptops() : $this->getLaptopsDetails($subResource);
+            // print_r($params);
+            $response = $subResource < 1 ? $this->getAllLaptops($params) : $this->getLaptopsDetails($subResource);
         } else {
             $response["rc"] = -20;
             $response["message"] = "No permission to access the resource using method GET";

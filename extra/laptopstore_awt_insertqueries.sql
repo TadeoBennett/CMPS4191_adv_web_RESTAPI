@@ -175,9 +175,9 @@ VALUES
 -- each user is given one key by default
 INSERT INTO `user_keys` (`key_id`, `user_id`, `key`, `expired`, `created_at`, `status`)
 VALUES
-(NULL, 1, 'awt_Klw8!LhJ!2e,+?R%;#NZ_2967926746', 0, current_timestamp(), 1),
-(NULL, 2, 'awt_H=D}ZPACJe:=a;XP*ity_3331065083', 0, current_timestamp(), 1),
-(NULL, 3, 'awt_]8M]pG6)HwCv0a3}JN[F_3355600744', 0, current_timestamp(), 1);
+(NULL, 1, 'awt_[9H<TzE5pIhW08tS(yF=Qo?{_0227029b5e7013d468d8155a47f1ec2b38f9f129aaadb9a668dd956dae443540', 0, current_timestamp(), 1),
+(NULL, 2, 'awt_5Lial}zgAAKu.U!SM4GwzECr_f9b5381cfc6e7ac6a4e1ae1ecc97a29a212a9b0a23247fac6a74ed3a982e9353', 0, current_timestamp(), 1),
+(NULL, 3, 'awt_]vzq0@MBoNqY19[z.!YB)KxQ_7f1b07ed9e5279d33a28072a2065f43cf3260dd4d771aabb6c564c2b576a3ebd', 0, current_timestamp(), 1);
 
 INSERT INTO `key_permissions` (`id`, `key_id`, `permission_id`, `method_id`, `created_at`, `status`)
 VALUES

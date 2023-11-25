@@ -1,0 +1,3 @@
+this demo shows how to connect to a mysql database to perform API requests.
+it incorporates both authentication and permission-based strategies
+also a weak level of sorting and filtering

@@ -1,0 +1,63 @@
+{
+    "rc": 51,
+    "message": "Success",
+    "data": [
+        {
+            "laptop_id": 6,
+            "category": "Workstations",
+            "name": "Laptop Zeta",
+            "brand": "Acer",
+            "cpu_type": "Intel",
+            "cpu_name": "Core i7",
+            "ram": 16,
+            "ram_type": "DDR4",
+            "storage_type": "SSD",
+            "storage_capacity": 512,
+            "has_gpu": 1,
+            "gpu_type": "NVIDIA GeForce GTX 1660 Ti",
+            "display": "15.6\" LED",
+            "resolution": "Full HD",
+            "operating_system": "Windows 11",
+            "price": 1199,
+            "status": 1
+        },
+        {
+            "laptop_id": 30,
+            "category": "Ultrabook",
+            "name": "Laptop Lambda",
+            "brand": "Acer",
+            "cpu_type": "AMD",
+            "cpu_name": "Ryzen 5",
+            "ram": 8,
+            "ram_type": "DDR4",
+            "storage_type": "SSD",
+            "storage_capacity": 256,
+            "has_gpu": 0,
+            "gpu_type": null,
+            "display": "15.6\" LED",
+            "resolution": "Full HD",
+            "operating_system": "Windows 10",
+            "price": 899,
+            "status": 1
+        },
+        {
+            "laptop_id": 26,
+            "category": "Budget",
+            "name": "Laptop Sky",
+            "brand": "Alienware (a subsidiary of Dell)",
+            "cpu_type": "AMD",
+            "cpu_name": "Ryzen 9",
+            "ram": 32,
+            "ram_type": "DDR4",
+            "storage_type": "SSD",
+            "storage_capacity": 1000,
+            "has_gpu": 1,
+            "gpu_type": "NVIDIA GeForce RTX 3070",
+            "display": "17.3\" OLED",
+            "resolution": "4K UHD",
+            "operating_system": "Windows 11",
+            "price": 1899,
+            "status": 1
+        }
+    ]
+}

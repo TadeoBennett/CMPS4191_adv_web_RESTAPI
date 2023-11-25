@@ -408,6 +408,7 @@ class User extends DBHandler
         $phone = array_key_exists('phone', $postData) ? $postData["phone"] : NULL;
         $age = array_key_exists('age', $postData) ? $postData["age"] : NULL;
         $password = array_key_exists('password', $postData) ? $postData["password"] : "password";
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $member = array_key_exists('member', $postData) ? $postData["member"] : 0; //not a member by default
         $status = 1;
 
@@ -417,7 +418,7 @@ class User extends DBHandler
 
             if ($this->sqlDB !== null) {
                 $stmt = $this->sqlDB->prepare($query);
-                $stmt->bind_param("issssssisii", $role_id, $firstname, $lastname, $username, $email, $address, $phone, $age, $password, $member, $status,);
+                $stmt->bind_param("issssssisii", $role_id, $firstname, $lastname, $username, $email, $address, $phone, $age, $hashedPassword, $member, $status,);
             } else {
                 $response["rc"] = -4;
                 $response["message"] = "No database connection";

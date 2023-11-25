@@ -44,7 +44,7 @@ class Laptop extends DBHandler
         $this->log->debug("ordersql: ". $orderSQl);
 
         //PAGING -----------------------
-        $pagingSQL = "LIMIT 5"; //default to 5 if no end is specified
+        $pagingSQL = "LIMIT 100"; //default to 100 if no end is specified
         if (isset($paging_rule["start"]) && isset($paging_rule["end"])) {
             // $pagingSQL = "LIMIT " . $paging_rule["start"] - 1 . ", ". $paging_rule["end"] - $paging_rule["start"] + 1;
             $pagingSQL = "LIMIT " . $paging_rule["start"] . ", ". $paging_rule["end"];

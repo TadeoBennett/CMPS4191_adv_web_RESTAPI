@@ -2,6 +2,11 @@
 
 header("Content-Type: application/json; charset=UTF-8");
 
+if(!isset($_SERVER["CONTENT_TYPE"]) || $_SERVER["CONTENT_TYPE"] != "application/json"){
+    http_response_code(415);
+    die("Unsupported request media type");
+}
+
 require_once "./classes/class.request.php";
 
 $request = new Request();

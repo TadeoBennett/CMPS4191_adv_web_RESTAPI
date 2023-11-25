@@ -34,11 +34,11 @@ INSERT INTO `categories` (`category_id`, `category`, `created_at`) VALUES
  (NULL, 'Linux', current_timestamp());
 
 
---  insert 3 students
+--  insert 3 USERS
 INSERT INTO `users` (`role_id`, `firstname`, `lastname`, `username`, `email`, `address`, `phone`, `age`, `password`, `member`, `status`, `created_at`) VALUES 
- (1, 'Tadeo', 'Bennett', 'TBennett', 'tadeo@gmail.com', '4', '', 21, 'Tadeo2002', '0', '1', current_timestamp()),
- (2, 'William', 'Locario', 'WLocario', 'william@gmail.com', '6', '', 22, 'William2002', '1', '1', current_timestamp()), 
- (2, 'Victor', 'Castillo', 'VCastillo', 'victor@gmail.com', '2', '', 19, 'Victor2002', '0', '1', current_timestamp());
+ (1, 'Tadeo', 'Bennett', 'TBennett', 'tadeo@gmail.com', '4', '', 21, '$2y$10$znnOuE/RSj8ZqShqtjDQFOlJpCZHmWxxVfYSjYx8o/XiEyXT8cZRi', '0', '1', current_timestamp()),
+ (2, 'William', 'Locario', 'WLocario', 'william@gmail.com', '6', '', 22, '$2y$10$kGmsj5kWYIupCo4Hj9YOYeZXPkd6lVWt4etYmQqtq7C6AkXXNuoDO', '1', '1', current_timestamp()), 
+ (2, 'Victor', 'Castillo', 'VCastillo', 'victor@gmail.com', '2', '', 19, '$2y$10$E8YvzIrmICmhueBLBg3DeOpFXbW3e5wzLUS3j3ikXNW8TygHDrccO', '0', '1', current_timestamp());
 
 
 --  insert brands

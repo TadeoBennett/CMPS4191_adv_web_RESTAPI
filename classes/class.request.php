@@ -5,6 +5,7 @@ use Respect\Validation\Rules\Exists;
 require_once "class.dbhandler.php";
 require_once "class.users.php";
 require_once "class.laptops.php";
+require_once "class.login.php";
 
 
 class Request extends DBHandler
@@ -147,7 +148,7 @@ class Request extends DBHandler
             // INNER JOIN
             //     methods AS m ON kp.method_id = m.method_id
             // WHERE
-            //     uk.key = 'awt_]8M]pG6)HwCv0a3}JN[F_3355600744' AND uk.status = 1 AND u.status = 1
+            //     uk.key = 'awt_[9H<TzE5pIhW08tS(yF=Qo?{_0227029b5e7013d468d8155a47f1ec2b38f9f129aaadb9a668dd956dae443540' AND uk.status = 1 AND u.status = 1
             // GROUP BY
             //     uk.key_id, pr.parent, pr.resource
             // ORDER BY
@@ -275,16 +276,18 @@ class Request extends DBHandler
         $service = null; //handles the request method function for all classes.
 
         // ---------------------------------------------------
-        // CEHCKING THE PERMISSIONS TO ACCESS THE parentResource
-
-        if (!isset($permissions["1"][$parentResource])) { //no permission to access the parentResource
-            $this->log->debug("NO ACCESS for for parentResource: $parentResource");
-            $response["rc"] = -2;
-            $response["message"] = "No permissions to access parentResource --$parentResource--";
-            $errorFound = 1;
-        }else{
-            $this->log->debug("granted access for parentResource --$parentResource--");
+        // CHECKING THE PERMISSIONS TO ACCESS THE parentResource
+        if ($parentResource != "login") {
+            if (!isset($permissions["1"][$parentResource])) { //no permission to access the parentResource
+                $this->log->debug("NO ACCESS for for parentResource: $parentResource");
+                $response["rc"] = -2;
+                $response["message"] = "No permissions to access parentResource --$parentResource--";
+                $errorFound = 1;
+            }else{
+                $this->log->debug("granted access for parentResource --$parentResource--");
+            }
         }
+        
         //--------------------------------------------------
 
         if ($errorFound == 0) {
@@ -301,6 +304,9 @@ class Request extends DBHandler
                 case 'laptops':
                     $service = new Laptop($permissions);
                     break;
+                case 'login':
+                    $service = new Login();
+                    break;
                 default:
                     $this->log->info("unknown resource requested...");
                     break;
@@ -309,7 +315,6 @@ class Request extends DBHandler
 
             if ($service) {
                 // $response = $service->$requestMethod($clientRequestArray);
-    
                 //checking which HTTP request method is being used
                 switch ($requestMethod) {
                     case 'GET':
@@ -319,8 +324,8 @@ class Request extends DBHandler
                         break;
     
                     case 'POST':
+                        // print_r($_POST);
                         $postData = $this->generate_assoc_array($_POST); //pass post data to generate and save an assoc array
-    
                         $response = $service->POST($clientRequestArray, $postData);
                         break;
                     case 'PUT':

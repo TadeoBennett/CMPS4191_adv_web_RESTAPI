@@ -1,0 +1,55 @@
+
+        try {
+
+            $allowedKeys = ["role_id", "firstname", "lastname", "username", "email", "address", "phone", "age", "member", "status"];
+            $query = "UPDATE users SET ";
+            $bindParams = [];
+
+            foreach ($allowedKeys as $key) {
+                // $this->log->debug('');
+                if (isset($putData[$key])) {
+                    $query .= "$key = ?, ";
+                    $bindParams[] = $putData[$key];
+                }
+            }
+
+            // Remove the trailing comma and space
+            $query = rtrim($query, ", ");
+
+            // Add a WHERE clause to specify the record to update
+            $query .= " WHERE user_id = ?"; // Assuming you're updating based on an 'id' value
+            $bindParams[] = $request; // Set the user ID here    
+
+            // $this->log->info($query);
+
+            // Prepare and bind the SQL statement
+            if ($this->sqlDB !== null) {
+                $stmt = $this->sqlDB->prepare($query);
+            } else {
+                $response["rc"] = -3;
+                $response["message"] = "No database connection";
+                return $response;
+            }
+
+            // Determine the data types for binding parameters (assuming they are all strings in this example)
+            $types = str_repeat('s', count($bindParams));
+
+            // Bind the parameters
+            $stmt->bind_param($types, ...$bindParams);
+
+            if (!$stmt->execute()) {
+                $stmt = null;
+                $response["rc"] = -23;
+                $response["message"] = "Error updating user";
+            } else {
+                $response["rc"] = 55;
+                $response["message"] = "Success. User Updated";
+                $response = $this->getUpdatedDetails($request, $response);
+            }
+            $stmt->close();
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        
+        
+return $response;
